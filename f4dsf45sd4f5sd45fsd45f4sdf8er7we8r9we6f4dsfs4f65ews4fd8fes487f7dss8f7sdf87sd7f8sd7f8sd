@@ -1,11 +1,13 @@
-local runService = game:GetService("RunService")
-local character = script.Parent:FindFirstAncestor("Humanoid")
+local player = game.Players.LocalPlayer
+local humanoid = player.Character:WaitForChild("Humanoid")
+humanoid.JumpPower = 50
 
-if character then
-    local function modifySize()
-        local humanoid = character
-        humanoid.Height = math.clamp(humanoid.Height + 5, 1, 20) -- Adjust values as needed
-    end
+local RunService = game:GetService("RunService")
 
-    runService.Heartbeat:Connect(modifySize)
-end
+humanoid:GetPropertyChangedSignal("JumpPower"):Connect(function()
+    humanoid.JumpPower = 50
+end)
+
+RunService.Heartbeat:Connect(function()
+    humanoid.JumpPower = 50
+end)
